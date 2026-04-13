@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Erin Murphy-Jarvis — Cartography</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Barlow:wght@300;400;500&family=Barlow+Condensed:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:        #111109;
+      --paper:      #f3ede1;
+      --cream:      #e8dfcc;
+      --accent:     #b5441e;
+      --accent-muted: #7a3518;
+      --rule:       rgba(243,237,225,0.12);
+      --rule-strong: rgba(243,237,225,0.28);
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-body: 'Barlow', sans-serif;
+      --font-label: 'Barlow Condensed', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--ink);
+      color: var(--paper);
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAVIGATION ── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 3rem;
+      background: rgba(17,17,9,0.85);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--rule);
+    }
+    nav .wordmark {
+      font-family: var(--font-label);
+      font-weight: 300;
+      font-size: 13px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--cream);
+      text-decoration: none;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2.5rem;
+    }
+    nav ul a {
+      font-family: var(--font-label);
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(243,237,225,0.5);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    nav ul a:hover { color: var(--paper); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-bottom: 1px solid var(--rule-strong);
+    }
+    .hero-left {
+      padding: 8rem 3rem 5rem;
+      border-right: 1px solid var(--rule);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+    .hero-eyebrow {
+      font-family: var(--font-label);
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+    }
+    .hero-name {
+      font-family: var(--font-display);
+      font-weight: 300;
+      font-size: clamp(3.5rem, 6vw, 7rem);
+      line-height: 1.0;
+      color: var(--paper);
+    }
+    .hero-name em {
+      font-style: italic;
+      color: var(--cream);
+    }
+    .hero-right {
+      padding: 8rem 3rem 5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      gap: 3rem;
+    }
+    .hero-desc {
+      font-family: var(--font-display);
+      font-weight: 300;
+      font-size: 1.35rem;
+      line-height: 1.6;
+      font-style: italic;
+      color: var(--cream);
+      max-width: 38ch;
+      border-left: 2px solid var(--accent);
+      padding-left: 1.5rem;
+    }
+    .hero-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .hero-meta-row {
+      display: flex;
+      gap: 2rem;
+    }
+    .meta-label {
+      font-family: var(--font-label);
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(243,237,225,0.35);
+      width: 6rem;
+      flex-shrink: 0;
+    }
+    .meta-value {
+      font-family: var(--font-label);
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--cream);
+    }
+    .meta-value a {
+      color: var(--cream);
+      text-decoration: none;
+      border-bottom: 1px solid var(--rule-strong);
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .meta-value a:hover {
+      color: var(--paper);
+      border-color: var(--accent);
+    }
+
+    /* ── SECTION WRAPPER ── */
+    .section {
+      display: grid;
+      grid-template-columns: 4rem 1fr;
+    }
+    .section-spine {
+      border-right: 1px solid var(--rule);
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding-top: 3rem;
+    }
+    .section-spine span {
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      font-family: var(--font-label);
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(243,237,225,0.28);
+    }
+    .section-body {
+      padding: 5rem 3rem;
+    }
+
+    /* ── WORK SECTION ── */
+    .section-heading {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 4vw, 4rem);
+      font-weight: 300;
+      font-style: italic;
+      color: var(--paper);
+      margin-bottom: 3.5rem;
+    }
+
+    .work-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0;
+      border-top: 1px solid var(--rule);
+      border-left: 1px solid var(--rule);
+    }
+
+    .work-item {
+      border-right: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .work-item.wide {
+      grid-column: span 2;
+    }
+
+    /* Image container */
+    .work-img-wrap {
+      position: relative;
+      overflow: hidden;
+      background: #1a1a16;
+    }
+    .work-item:not(.wide) .work-img-wrap { aspect-ratio: 4/3; }
+    .work-item.wide .work-img-wrap { aspect-ratio: 16/6; }
+
+    .work-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s ease, filter 0.6s ease;
+      filter: saturate(0.85);
+    }
+    .work-item:hover .work-img-wrap img {
+      transform: scale(1.03);
+      filter: saturate(1.05);
+    }
+
+    /* Placeholder styling — remove once images are wired in */
+    .work-img-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #1a1a16 0%, #231f1a 50%, #1a1912 100%);
+    }
+    .work-img-placeholder span {
+      font-family: var(--font-label);
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(243,237,225,0.2);
+    }
+
+    .work-caption {
+      padding: 1.5rem 1.75rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      border-top: 1px solid var(--rule);
+    }
+
+    .work-tags {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.25rem;
+    }
+    .work-tag {
+      font-family: var(--font-label);
+      font-size: 9px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border: 1px solid var(--rule-strong);
+      color: rgba(243,237,225,0.45);
+    }
+    .work-tag.accent {
+      border-color: var(--accent-muted);
+      color: #d4795a;
+    }
+
+    .work-title {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 400;
+      line-height: 1.2;
+      color: var(--paper);
+    }
+    .work-title em { font-style: italic; color: var(--cream); }
+
+    .work-year {
+      font-family: var(--font-label);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      color: rgba(243,237,225,0.3);
+    }
+
+    .work-desc {
+      font-size: 14px;
+      font-weight: 300;
+      color: rgba(243,237,225,0.6);
+      line-height: 1.65;
+      max-width: 55ch;
+    }
+
+    .work-tools {
+      margin-top: auto;
+      padding-top: 1rem;
+      font-family: var(--font-label);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: rgba(243,237,225,0.28);
+    }
+    .work-tools strong {
+      color: rgba(243,237,225,0.45);
+      font-weight: 500;
+    }
+
+    /* ── ABOUT ── */
+    .about-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    .about-text p {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 300;
+      color: var(--cream);
+      line-height: 1.75;
+      margin-bottom: 1.2rem;
+    }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border-top: 1px solid var(--rule);
+      border-left: 1px solid var(--rule);
+    }
+    .skill-cell {
+      border-right: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+      padding: 1rem;
+    }
+    .skill-cell-label {
+      font-family: var(--font-label);
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(243,237,225,0.3);
+      margin-bottom: 0.4rem;
+    }
+    .skill-cell-value {
+      font-family: var(--font-label);
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--cream);
+      line-height: 1.5;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--rule-strong);
+      padding: 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    footer .footer-name {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-style: italic;
+      color: var(--cream);
+    }
+    footer .footer-links {
+      display: flex;
+      gap: 2rem;
+    }
+    footer .footer-links a {
+      font-family: var(--font-label);
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(243,237,225,0.4);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    footer .footer-links a:hover { color: var(--paper); }
+    footer .footer-copy {
+      font-family: var(--font-label);
+      font-size: 11px;
+      color: rgba(243,237,225,0.2);
+      letter-spacing: 0.08em;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.25rem; }
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-left { padding: 6rem 1.5rem 2rem; border-right: none; border-bottom: 1px solid var(--rule); }
+      .hero-right { padding: 2rem 1.5rem 4rem; }
+      .section { grid-template-columns: 1fr; }
+      .section-spine { display: none; }
+      .section-body { padding: 3rem 1.5rem; }
+      .work-grid { grid-template-columns: 1fr; }
+      .work-item.wide { grid-column: span 1; }
+      .work-item.wide .work-img-wrap { aspect-ratio: 4/3; }
+      .about-inner { grid-template-columns: 1fr; gap: 2rem; }
+      footer { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── NAVIGATION ─────────────────────────────── -->
+  <nav>
+    <a href="#" class="wordmark">Erin Murphy-Jarvis</a>
+    <ul>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="mailto:erinmurphyjarvis@gmail.com">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- ─── HERO ───────────────────────────────────── -->
+  <section class="hero" id="top">
+    <div class="hero-left">
+      <p class="hero-eyebrow">Cartography &amp; GIS</p>
+      <h1 class="hero-name">Erin<br/><em>Murphy-Jarvis</em></h1>
+    </div>
+    <div class="hero-right">
+      <p class="hero-desc">
+        Print and editorial cartography rooted in spatial data, infrastructure mapping,
+        and the art of making complex geographies legible.
+      </p>
+      <div class="hero-meta">
+        <div class="hero-meta-row">
+          <span class="meta-label">Location</span>
+          <span class="meta-value">Seattle, WA</span>
+        </div>
+        <div class="hero-meta-row">
+          <span class="meta-label">Discipline</span>
+          <span class="meta-value">Cartography · GIS · Data Visualization</span>
+        </div>
+        <div class="hero-meta-row">
+          <span class="meta-label">GitHub</span>
+          <span class="meta-value"><a href="https://github.com/eringobruh" target="_blank">github.com/eringobruh</a></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── WORK ───────────────────────────────────── -->
+  <section class="section" id="work">
+    <div class="section-spine"><span>Selected Work</span></div>
+    <div class="section-body">
+      <h2 class="section-heading">Selected<br/>Work</h2>
+
+      <div class="work-grid">
+
+        <!-- PROJECT 1 — Cavan MCE (left) -->
+        <article class="work-item">
+          <div class="work-img-wrap">
+            <img src="images/Cavan_Social_Housing_Site_Selection.png" alt="Final MCE suitability raster for social housing site selection in County Cavan, Ireland" />
+          </div>
+          <div class="work-caption">
+            <div class="work-tags">
+              <span class="work-tag accent">Suitability Analysis</span>
+              <span class="work-tag">MCE</span>
+              <span class="work-tag">Raster</span>
+            </div>
+            <h3 class="work-title">Social Housing Site Selection,<br/><em>Co. Cavan</em></h3>
+            <span class="work-year">M.Sc. Dissertation</span>
+            <p class="work-desc">
+              Multi-criteria evaluation suitability raster identifying optimal locations for
+              social housing delivery across County Cavan, Ireland. Composite scores were derived
+              from weighted spatial criteria including proximity to unfinished estates,
+              infrastructure access, and land use constraints.
+            </p>
+            <p class="work-tools"><strong>Tools:</strong> ArcGIS · Weighted Overlay · Raster Analysis</p>
+          </div>
+        </article>
+
+        <!-- PROJECT 2 — Cinema baseline (right) -->
+        <article class="work-item">
+          <div class="work-img-wrap">
+            <img src="images/Cinema_Analysis_01.png" alt="60-minute drive-time catchments for existing cinemas in northeastern Ireland, baseline scenario" />
+          </div>
+          <div class="work-caption">
+            <div class="work-tags">
+              <span class="work-tag accent">Service Area Analysis</span>
+              <span class="work-tag">Network Analysis</span>
+              <span class="work-tag">Series 1 of 4</span>
+            </div>
+            <h3 class="work-title">Cinema Catchments,<br/><em>Northeastern Ireland — Baseline</em></h3>
+            <span class="work-year">M.Sc. Dissertation</span>
+            <p class="work-desc">
+              Baseline 60-minute drive-time catchment model for existing cinema provision
+              across northeastern Ireland. Establishes service area boundaries before
+              introduction of two proposed venues in Dundalk.
+            </p>
+            <p class="work-tools"><strong>Tools:</strong> ArcGIS Network Analyst · Small Area Population Statistics</p>
+          </div>
+        </article>
+
+        <!-- PROJECT 3 — Cinema with Marshes (left) -->
+        <article class="work-item">
+          <div class="work-img-wrap">
+            <img src="images/Cinema_Analysis_02.png" alt="Catchment areas with proposed Marshes cinema in Dundalk added to the network" />
+          </div>
+          <div class="work-caption">
+            <div class="work-tags">
+              <span class="work-tag accent">Scenario Modelling</span>
+              <span class="work-tag">Series 2 of 4</span>
+            </div>
+            <h3 class="work-title">With Marshes Cinema,<br/><em>Dundalk (Proposed)</em></h3>
+            <span class="work-year">M.Sc. Dissertation</span>
+            <p class="work-desc">
+              Catchment redistribution modelling the effect of a proposed cinema at The
+              Marshes, Dundalk. The new venue draws a distinct catchment from the east
+              Dundalk area, reducing reliance on the existing IMC.
+            </p>
+            <p class="work-tools"><strong>Tools:</strong> ArcGIS Network Analyst · Scenario Comparison</p>
+          </div>
+        </article>
+
+        <!-- PROJECT 4 — Cinema with Retail Park (right) -->
+        <article class="work-item">
+          <div class="work-img-wrap">
+            <img src="images/Cinema_Analysis_03.png" alt="Catchment areas with proposed Retail Park cinema in Dundalk added to the network" />
+          </div>
+          <div class="work-caption">
+            <div class="work-tags">
+              <span class="work-tag accent">Scenario Modelling</span>
+              <span class="work-tag">Series 3 of 4</span>
+            </div>
+            <h3 class="work-title">With Retail Park Cinema,<br/><em>Dundalk (Proposed)</em></h3>
+            <span class="work-year">M.Sc. Dissertation</span>
+            <p class="work-desc">
+              Alternative scenario introducing a second proposed venue at Dundalk Retail
+              Park. Catchment modelling shows a different spatial footprint compared to
+              the Marshes site, serving a more southerly population.
+            </p>
+            <p class="work-tools"><strong>Tools:</strong> ArcGIS Network Analyst · Scenario Comparison</p>
+          </div>
+        </article>
+
+        <!-- PROJECT 5 — Cinema both proposed (wide) -->
+        <article class="work-item wide">
+          <div class="work-img-wrap">
+            <img src="images/Cinema_Analysis_04.png" alt="Final scenario showing catchment areas with both proposed Dundalk cinemas operating simultaneously" />
+          </div>
+          <div class="work-caption">
+            <div class="work-tags">
+              <span class="work-tag accent">Final Scenario</span>
+              <span class="work-tag">Service Provision</span>
+              <span class="work-tag">Series 4 of 4</span>
+            </div>
+            <h3 class="work-title">With Both Proposed Cinemas,<br/><em>Northeastern Ireland — Final Scenario</em></h3>
+            <span class="work-year">M.Sc. Dissertation</span>
+            <p class="work-desc">
+              Final scenario modelling simultaneous operation of both proposed Dundalk venues.
+              Combined catchment analysis reveals how the two sites partition demand,
+              the degree of overlap with existing provision, and residual underserved
+              areas beyond 60 minutes of any cinema.
+            </p>
+            <p class="work-tools"><strong>Tools:</strong> ArcGIS Network Analyst · Network Dataset · Small Area Statistics</p>
+          </div>
+        </article>
+
+      </div><!-- /work-grid -->
+    </div>
+  </section>
+
+  <!-- ─── ABOUT ──────────────────────────────────── -->
+  <section class="section" id="about">
+    <div class="section-spine"><span>About</span></div>
+    <div class="section-body">
+      <h2 class="section-heading">About</h2>
+      <div class="about-inner">
+
+        <div class="about-text">
+          <p>
+            I'm a GIS professional and cartographer based in Seattle, with over a decade
+            of experience translating complex spatial data into clear, considered maps.
+            My work spans utility infrastructure, transit networks, and editorial
+            print cartography.
+          </p>
+          <p>
+            I hold an M.Sc. in GIS and Remote Sensing, and have worked across the
+            energy, travel, and mapping sectors — including roles at Puget Sound Energy
+            and Expedia Group, and contract work for Google Maps.
+          </p>
+        </div>
+
+        <div class="skills-grid">
+          <div class="skill-cell">
+            <p class="skill-cell-label">Software</p>
+            <p class="skill-cell-value">ArcGIS Pro · QGIS · Adobe Illustrator · Mapbox</p>
+          </div>
+          <div class="skill-cell">
+            <p class="skill-cell-label">Specialisms</p>
+            <p class="skill-cell-value">Print cartography · Utility network GIS · Data modeling</p>
+          </div>
+          <div class="skill-cell">
+            <p class="skill-cell-label">Languages</p>
+            <p class="skill-cell-value">Python · SQL · ArcPy</p>
+          </div>
+          <div class="skill-cell">
+            <p class="skill-cell-label">Education</p>
+            <p class="skill-cell-value">M.Sc. GIS &amp; Remote Sensing</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ─────────────────────────────────── -->
+  <footer>
+    <span class="footer-name">Erin Murphy-Jarvis</span>
+    <nav class="footer-links" aria-label="Footer links">
+      <a href="mailto:erinmurphyjarvis@gmail.com">erinmurphyjarvis@gmail.com</a>
+      <a href="https://github.com/eringobruh" target="_blank">GitHub</a>
+    </nav>
+    <span class="footer-copy">© 2026 Erin Murphy-Jarvis</span>
+  </footer>
+
+</body>
+</html>
